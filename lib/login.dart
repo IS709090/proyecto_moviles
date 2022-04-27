@@ -1,3 +1,6 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:proyecto_moviles/auth/bloc/auth_bloc.dart';
+
 import 'home.dart';
 import 'signup.dart';
 import 'package:flutter/material.dart';
@@ -127,22 +130,54 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  /*FutureBuilder(
-                    future: Authentication.initializeFirebase(context: context),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        return Text('Error initializing Firebase');
-                      } else if (snapshot.connectionState ==
-                          ConnectionState.done) {
-                        return GoogleSignInButton();
-                      }
-                      return CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          Colors.orange,
+                  SizedBox(height: 20),
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                        color: Colors.grey.shade200,
+                        gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [
+                            Color(0xff14279B),
+                            Color(0xff14279B),
+                          ],
                         ),
-                      );
-                    },
-                  ),*/
+                      ),
+                      child: Center(
+                          child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          MaterialButton(
+                              hoverColor: Color.fromARGB(255, 17, 61, 18),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.g_mobiledata_outlined,
+                                    color: Colors.white,
+                                    size: 40,
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Text(
+                                    "Iniciar con Google",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                              color: Colors.green,
+                              minWidth: MediaQuery.of(context).size.width - 30,
+                              onPressed: () {
+                                BlocProvider.of<AuthBloc>(context)
+                                    .add(GoogleAuthEvent());
+                              }),
+                        ],
+                      ))),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     alignment: Alignment.centerRight,
