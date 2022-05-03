@@ -30,10 +30,10 @@ final Map<String, Set<Map<String, String>>> Polizas = {
       'numero_poliza': "4JF094WJF09W"
     },
     {
-      'titulo': "BMW Ibiza 2017",
+      'titulo': "BMW M3 2017",
       'aseguradora': "Aseguradora HDI",
       'descripcion': "Seguro de Automóvil Gastos Mayores",
-      'numero_poliza': "95JFE90W3J"
+      'numero_poliza': "48H9FWHE9FH9"
     },
   },
   'Seguro de Vida': {

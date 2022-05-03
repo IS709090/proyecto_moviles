@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'siniestros.dart';
+import 'polizas.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -108,7 +109,12 @@ class _HomeState extends State<Home> {
                   child: Text('Mis Recibos\ny Pólizas',
                       style: TextStyle(fontSize: 30),
                       textAlign: TextAlign.center),
-                  onPressed: () => null,
+                  onPressed: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PolizasScreen(),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(width: 10),

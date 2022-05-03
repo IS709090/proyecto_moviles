@@ -13,6 +13,7 @@ class Siniestros extends StatefulWidget {
 class _SiniestrosState extends State<Siniestros> {
   String dropdownValue = Hogar.tipo;
   Set<Map<String, String>>? polizas = Polizas.values.elementAt(0);
+  Map<String, String> polizaIndividual = Polizas.values.elementAt(0).first;
 
   // List<Polizas> arregloPolizas = [
   //   PolizasSeguroVida,
@@ -89,12 +90,20 @@ class _SiniestrosState extends State<Siniestros> {
             itemCount: polizas!.length,
             itemBuilder: (BuildContext context, int index) {
               var value = polizas!.elementAt(index);
-              print(value);
 
               return GestureDetector(
+                onTap: () {},
                 child: Container(
                   padding: EdgeInsets.all(5),
                   decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: .7,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
                       color: Color.fromARGB(255, 220, 223, 252),
                       border: Border.all(
                         color: Colors.black,
@@ -114,7 +123,8 @@ class _SiniestrosState extends State<Siniestros> {
                         children: [
                           Text(
                             value["titulo"].toString(),
-                            style: TextStyle(fontSize: 18),
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           Text(
                             value["descripcion"].toString(),
