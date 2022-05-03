@@ -30,6 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   image_picker:
+  url_launcher:
 
 
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'siniestros.dart';
 import 'polizas.dart';
 
@@ -13,6 +13,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   var _iconColor = Colors.blue;
   var _newIconColor = Colors.yellow;
+  final Uri _url = Uri.parse('tel://3316689586');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,7 +128,7 @@ class _HomeState extends State<Home> {
                   child: Text('Contactar Agente',
                       style: TextStyle(fontSize: 30),
                       textAlign: TextAlign.center),
-                  onPressed: () => null,
+                  onPressed: () => launchUrl(_url),
                 ),
               ),
             ],
