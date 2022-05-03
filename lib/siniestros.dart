@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'testing.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Siniestros extends StatefulWidget {
   Siniestros({Key? key}) : super(key: key);
@@ -12,6 +15,13 @@ class _SiniestrosState extends State<Siniestros> {
   String dropdownValue = Hogar.tipo;
   Set<Map<String, String>>? polizas = Polizas.values.elementAt(0);
   Map<String, String> polizaIndividual = Polizas.values.elementAt(0).first;
+  String numeroPoliza = "";
+
+  Completer<GoogleMapController> _controller = Completer();
+  static const LatLng _center = const LatLng(45.521563, -122.677433);
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +55,7 @@ class _SiniestrosState extends State<Siniestros> {
                   setState(() {
                     dropdownValue = newValue!;
                     polizas = Polizas[newValue];
+                    numeroPoliza = "";
                   });
                 },
                 items: <String>[
@@ -81,7 +92,11 @@ class _SiniestrosState extends State<Siniestros> {
               var value = polizas!.elementAt(index);
 
               return GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  setState(() {
+                    numeroPoliza = value["numero_poliza"].toString();
+                  });
+                },
                 child: Container(
                   padding: EdgeInsets.all(5),
                   decoration: BoxDecoration(
@@ -135,6 +150,83 @@ class _SiniestrosState extends State<Siniestros> {
             color: Colors.grey,
           ),
           SizedBox(height: 15),
+          Container(
+            height: MediaQuery.of(context).size.height * .5,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 6,
+                  child: Container(
+                    padding: EdgeInsets.all(2.5),
+                    decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.5),
+                            spreadRadius: .1,
+                            blurRadius: 7,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                        border: Border.all(
+                          color: Colors.black,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: GoogleMap(
+                      onMapCreated: _onMapCreated,
+                      initialCameraPosition: CameraPosition(
+                        target: _center,
+                        zoom: 11.0,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 15),
+                Expanded(
+                  flex: 4,
+                  child: Container(
+                    padding: EdgeInsets.all(7),
+                    decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.5),
+                            spreadRadius: .1,
+                            blurRadius: 7,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                        color: Color.fromARGB(255, 133, 133, 255),
+                        border: Border.all(
+                          color: Colors.black,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                            "Durante la llamada le solicitarán la siguiente información:",
+                            style: TextStyle(fontSize: 16),
+                            textAlign: TextAlign.justify),
+                        Text("Número de Póliza:",
+                            style: TextStyle(fontSize: 16),
+                            textAlign: TextAlign.justify),
+                        Text(numeroPoliza,
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.justify),
+                        Text("Ubicación:",
+                            style: TextStyle(fontSize: 16),
+                            textAlign: TextAlign.justify),
+                        Text(_center.toString(),
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.justify)
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )
         ]),
       ]),
     );

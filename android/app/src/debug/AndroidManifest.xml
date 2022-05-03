@@ -3,6 +3,10 @@
     <!-- Flutter needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
     -->
+    <!-- TODO: Add your Google Maps API key here -->
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyDz_NpPrzXrO-aAP9YeyLKAIzVxeuOaHJU"/>
+
     <uses-permission android:name="android.permission.INTERNET"/>
     <queries>
   <!-- If your app opens https URLs -->

@@ -38,7 +38,7 @@ final Map<String, Set<Map<String, String>>> Polizas = {
   },
   'Seguro de Vida': {
     {
-      'titulo': "Diego Arana Ballesteros",
+      'titulo': "Iván Canavati",
       'aseguradora': "Aseguradora GNP",
       'descripcion': "Seguro de Vida Menor",
       'numero_poliza': "96JEPRFJ4K"
