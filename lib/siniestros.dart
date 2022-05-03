@@ -93,14 +93,20 @@ class _SiniestrosState extends State<Siniestros> {
 
               return GestureDetector(
                 child: Container(
-                  height: 50,
-                  // color: Colors.purple,
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 220, 223, 252),
+                      border: Border.all(
+                        color: Colors.black,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Row(children: [
                     Expanded(
                       flex: 2,
                       child: Image.network(
                           "https://wnscom-bucket.s3.amazonaws.com/S3_5/Images/CapabilitiesHeader/HeaderImage/16512/8/insurance-banner.png"),
                     ),
+                    SizedBox(width: 10),
                     Expanded(
                       flex: 8,
                       child: Column(
@@ -122,7 +128,7 @@ class _SiniestrosState extends State<Siniestros> {
               );
             },
             separatorBuilder: (BuildContext context, int index) =>
-                const Divider(),
+                const Divider(color: Colors.grey),
           ),
           SizedBox(height: 10),
           Container(
