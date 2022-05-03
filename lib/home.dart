@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'siniestros.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -134,7 +136,12 @@ class _HomeState extends State<Home> {
                       MediaQuery.of(context).size.height * .2))),
               child: Text('Tengo un Accidente!',
                   style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
-              onPressed: () => null,
+              onPressed: () => Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Siniestros(),
+                ),
+              ),
             ),
           ),
         ],
