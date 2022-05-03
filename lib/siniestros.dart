@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'testing.dart';
 
@@ -14,14 +12,6 @@ class _SiniestrosState extends State<Siniestros> {
   String dropdownValue = Hogar.tipo;
   Set<Map<String, String>>? polizas = Polizas.values.elementAt(0);
   Map<String, String> polizaIndividual = Polizas.values.elementAt(0).first;
-
-  // List<Polizas> arregloPolizas = [
-  //   PolizasSeguroVida,
-  //   PolizasAutomovilistico,
-  //   PolizasHogar,
-  //   PolizasMedico
-  // ];
-  // Map<String, dynamic> listValues = jsonDecode(Polizas["Polizas"]["Hogar"]);
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +45,6 @@ class _SiniestrosState extends State<Siniestros> {
                   setState(() {
                     dropdownValue = newValue!;
                     polizas = Polizas[newValue];
-                    // print(listValues);
                   });
                 },
                 items: <String>[
@@ -101,7 +90,7 @@ class _SiniestrosState extends State<Siniestros> {
                           color: Colors.black.withOpacity(0.5),
                           spreadRadius: .7,
                           blurRadius: 7,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset: Offset(0, 3),
                         ),
                       ],
                       color: Color.fromARGB(255, 220, 223, 252),
