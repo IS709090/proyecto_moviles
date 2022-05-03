@@ -21,14 +21,14 @@ class _HomeState extends State<Home> {
           text: TextSpan(
               text: 'Multi',
               style: TextStyle(
-                fontSize: 30,
+                fontSize: 25,
                 fontWeight: FontWeight.w700,
                 color: Color(0xff14279B),
               ),
               children: [
                 TextSpan(
                   text: 'Seguros',
-                  style: TextStyle(color: Colors.black, fontSize: 30),
+                  style: TextStyle(color: Colors.black, fontSize: 25),
                 ),
               ]),
         ),
