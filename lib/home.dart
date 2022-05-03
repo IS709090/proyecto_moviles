@@ -94,7 +94,50 @@ class _HomeState extends State<Home> {
       ),
       body: ListView(
         padding: const EdgeInsets.all(8),
-        children: <Widget>[],
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all(Size(
+                          MediaQuery.of(context).size.width,
+                          MediaQuery.of(context).size.height * .2))),
+                  child: Text('Mis Recibos\ny Pólizas',
+                      style: TextStyle(fontSize: 30),
+                      textAlign: TextAlign.center),
+                  onPressed: () => null,
+                ),
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all(Size(
+                          MediaQuery.of(context).size.width,
+                          MediaQuery.of(context).size.height * .2))),
+                  child: Text('Contactar Agente',
+                      style: TextStyle(fontSize: 30),
+                      textAlign: TextAlign.center),
+                  onPressed: () => null,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 10),
+          Expanded(
+            child: ElevatedButton(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                  minimumSize: MaterialStateProperty.all(Size(
+                      MediaQuery.of(context).size.width,
+                      MediaQuery.of(context).size.height * .2))),
+              child: Text('Tengo un Accidente!',
+                  style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
+              onPressed: () => null,
+            ),
+          ),
+        ],
       ),
     );
   }
