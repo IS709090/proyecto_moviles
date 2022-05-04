@@ -204,7 +204,7 @@ class _HomeState extends State<Home> {
                   child: Text('Mis Recibos\ny Pólizas',
                       style: TextStyle(fontSize: 30),
                       textAlign: TextAlign.center),
-                  onPressed: () => Navigator.pushReplacement(
+                  onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => PolizasScreen(),
@@ -237,7 +237,7 @@ class _HomeState extends State<Home> {
                       MediaQuery.of(context).size.height * .2))),
               child: Text('Tengo un Accidente!',
                   style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
-              onPressed: () => Navigator.pushReplacement(
+              onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => Siniestros(),
