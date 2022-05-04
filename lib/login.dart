@@ -48,7 +48,7 @@ class _LoginState extends State<Login> {
                   SizedBox(height: 50),
                   Column(
                     children: <Widget>[
-                      Container(
+                      /*Container(
                         margin: EdgeInsets.symmetric(vertical: 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,7 +91,7 @@ class _LoginState extends State<Login> {
                                     filled: true))
                           ],
                         ),
-                      )
+                      )*/
                     ],
                   ),
                   SizedBox(height: 20),
