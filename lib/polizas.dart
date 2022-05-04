@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_moviles/home.dart';
 import 'testing.dart';
 
 class PolizasScreen extends StatefulWidget {
@@ -21,6 +22,13 @@ class _PolizasScreenState extends State<PolizasScreen> {
     });
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Home()));
+          },
+        ),
         title: Text(
           "Pólizas",
           style: TextStyle(fontSize: 25),

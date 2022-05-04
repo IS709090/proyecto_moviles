@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:proyecto_moviles/home.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'testing.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -13,6 +15,7 @@ class Siniestros extends StatefulWidget {
 
 class _SiniestrosState extends State<Siniestros> {
   String dropdownValue = Hogar.tipo;
+  final Uri _url = Uri.parse('tel://3316689586');
   Set<Map<String, String>>? polizas = Polizas.values.elementAt(0);
   Map<String, String> polizaIndividual = Polizas.values.elementAt(0).first;
   String numeroPoliza = "";
@@ -27,6 +30,13 @@ class _SiniestrosState extends State<Siniestros> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Home()));
+          },
+        ),
         title: Text(
           "Reporte de Siniestro",
           style: TextStyle(fontSize: 25),
@@ -72,7 +82,7 @@ class _SiniestrosState extends State<Siniestros> {
               ),
             ),
           ]),
-          SizedBox(height: 50),
+          SizedBox(height: 20),
           Text(
             "Seleccione el Producto Asociado",
             style: TextStyle(fontSize: 20),
@@ -152,7 +162,7 @@ class _SiniestrosState extends State<Siniestros> {
           SizedBox(height: 15),
           Container(
             height: MediaQuery.of(context).size.height * .5,
-            child: Row(
+            child: Column(
               children: [
                 Expanded(
                   flex: 6,
@@ -180,7 +190,7 @@ class _SiniestrosState extends State<Siniestros> {
                     ),
                   ),
                 ),
-                SizedBox(width: 15),
+                SizedBox(height: 10),
                 Expanded(
                   flex: 4,
                   child: Container(
@@ -194,7 +204,7 @@ class _SiniestrosState extends State<Siniestros> {
                             offset: Offset(0, 3),
                           ),
                         ],
-                        color: Color.fromARGB(255, 133, 133, 255),
+                        color: Colors.white70,
                         border: Border.all(
                           color: Colors.black,
                         ),
@@ -222,6 +232,18 @@ class _SiniestrosState extends State<Siniestros> {
                             textAlign: TextAlign.justify)
                       ],
                     ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    launchUrl(_url);
+                  },
+                  child: Icon(Icons.phone, color: Colors.white),
+                  style: ElevatedButton.styleFrom(
+                    shape: CircleBorder(),
+                    padding: EdgeInsets.all(20),
+                    primary: Colors.lightGreen,
                   ),
                 )
               ],

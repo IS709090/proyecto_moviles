@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proyecto_moviles/auth/bloc/auth_bloc.dart';
 import 'package:proyecto_moviles/home.dart';
 import 'package:proyecto_moviles/login.dart';
-import 'package:proyecto_moviles/welcome.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

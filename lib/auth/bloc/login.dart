@@ -5,8 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 class UserAuthRepository {
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ["email"]);
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  // true -> go home page
-  // false -> go login page
+
   bool isAlreadyAuthenticated() {
     return _auth.currentUser != null;
   }
@@ -20,22 +19,33 @@ class UserAuthRepository {
   }
 
   Future<void> signInWithGoogle() async {
-    //Google sign in
     final googleUser = await _googleSignIn.signIn();
     final googleAuth = await googleUser!.authentication;
     print(">> User email:${googleUser.email}");
     print(">> User name:${googleUser.displayName}");
     print(">> User photo:${googleUser.photoUrl}");
-    // credenciales de usuario autenticado con Google
     final AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    // firebase sign in con credenciales de Google
     final authResult = await _auth.signInWithCredential(credential);
-    // Extraer token**
-    // User user = authResult.user!;
-    // final firebaseToken = await user.getIdToken();
-    // print("user fcm token:${firebaseToken}");
+
+    await _createUserCollectionFirebase(_auth.currentUser!.uid,
+        _auth.currentUser!.displayName, _auth.currentUser!.email);
+  }
+
+  Future<void> _createUserCollectionFirebase(
+      String uid, String? name, String? email) async {
+    var userDoc =
+        await FirebaseFirestore.instance.collection("usuarios").doc(uid).get();
+
+    if (!userDoc.exists) {
+      await FirebaseFirestore.instance
+          .collection("usuarios")
+          .doc(uid)
+          .set({"polizas": {}, "nombre": name, "email": email});
+    } else {
+      return;
+    }
   }
 }
