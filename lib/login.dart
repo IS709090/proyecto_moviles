@@ -48,7 +48,7 @@ class _LoginState extends State<Login> {
                   SizedBox(height: 50),
                   Column(
                     children: <Widget>[
-                      /*Container(
+                      Container(
                         margin: EdgeInsets.symmetric(vertical: 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,7 +91,7 @@ class _LoginState extends State<Login> {
                                     filled: true))
                           ],
                         ),
-                      )*/
+                      )
                     ],
                   ),
                   SizedBox(height: 20),
@@ -125,19 +125,29 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                       child: Text(
-                        'Login',
+                        'Iniciar',
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
                   ),
                   SizedBox(height: 20),
-                  Container(
+                  GestureDetector(
+                    onTap: () {
+                      BlocProvider.of<AuthBloc>(context).add(GoogleAuthEvent());
+                    },
+                    child: Container(
                       width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.symmetric(vertical: 15),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(5)),
-                        color: Colors.grey.shade200,
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                              color: Colors.grey.shade200,
+                              offset: Offset(2, 4),
+                              blurRadius: 5,
+                              spreadRadius: 2)
+                        ],
                         gradient: LinearGradient(
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
@@ -147,41 +157,27 @@ class _LoginState extends State<Login> {
                           ],
                         ),
                       ),
-                      child: Center(
-                          child: Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          MaterialButton(
-                              hoverColor: Color.fromARGB(255, 17, 61, 18),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(
-                                    Icons.g_mobiledata_outlined,
-                                    color: Colors.white,
-                                    size: 40,
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Text(
-                                    "Iniciar con Google",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                              color: Colors.green,
-                              minWidth: MediaQuery.of(context).size.width - 30,
-                              onPressed: () {
-                                BlocProvider.of<AuthBloc>(context)
-                                    .add(GoogleAuthEvent());
-                              }),
+                          Icon(
+                            Icons.g_mobiledata_outlined,
+                            color: Colors.white,
+                            size: 40,
+                          ),
+                          Text(
+                            'Iniciar con Google',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
                         ],
-                      ))),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     alignment: Alignment.centerRight,
-                    child: Text('Forgot Password ?',
+                    child: Text('Olvido su contrasena ?',
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.w500)),
                   ),
@@ -199,7 +195,7 @@ class _LoginState extends State<Login> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            'Don\'t have an account ?',
+                            'Aun no esta suscrito ?',
                             style: TextStyle(
                                 fontSize: 13, fontWeight: FontWeight.w600),
                           ),
@@ -207,7 +203,7 @@ class _LoginState extends State<Login> {
                             width: 10,
                           ),
                           Text(
-                            'Register',
+                            'Registrar',
                             style: TextStyle(
                                 color: Color(0xff14279B),
                                 fontSize: 13,
@@ -237,7 +233,7 @@ class _LoginState extends State<Login> {
                       child:
                           Icon(Icons.keyboard_arrow_left, color: Colors.black),
                     ),
-                    Text('Back',
+                    Text('Atras',
                         style: TextStyle(
                             fontSize: 12, fontWeight: FontWeight.w500))
                   ],
