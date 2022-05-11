@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:proyecto_moviles/home.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'loadingScreed.dart';
 import 'testing.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -34,7 +35,7 @@ class _SiniestrosState extends State<Siniestros> {
           icon: Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Home()));
+                context, MaterialPageRoute(builder: (context) => loading()));
           },
         ),
         title: Text(
@@ -161,7 +162,7 @@ class _SiniestrosState extends State<Siniestros> {
           ),
           SizedBox(height: 15),
           Container(
-            height: MediaQuery.of(context).size.height * .5,
+            height: MediaQuery.of(context).size.height * .6,
             child: Column(
               children: [
                 Expanded(
@@ -223,7 +224,7 @@ class _SiniestrosState extends State<Siniestros> {
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                             textAlign: TextAlign.justify),
-                        Text("Ubicación:",
+                        Text("\nUbicación:",
                             style: TextStyle(fontSize: 16),
                             textAlign: TextAlign.justify),
                         Text(_center.toString(),

@@ -4,6 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proyecto_moviles/auth/bloc/auth_bloc.dart';
 import 'package:proyecto_moviles/home.dart';
 import 'package:proyecto_moviles/login.dart';
+import 'package:proyecto_moviles/seguros/bloc/seguros_bloc.dart';
+
+import 'loadingScreed.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,6 +15,9 @@ void main() async {
     providers: [
       BlocProvider(
         create: (context) => AuthBloc()..add(VerifyAuthEvent()),
+      ),
+      BlocProvider(
+        create: (context) => SegurosBloc(),
       ),
     ],
     child: misSegurosApp(),
@@ -36,7 +42,8 @@ class misSegurosApp extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is AuthSuccessState) {
-              return Home();
+              BlocProvider.of<SegurosBloc>(context).add(SegurosGetAll());
+              return loading();
             } else if (state is UnAuthState ||
                 state is AuthErrorState ||
                 state is SignOutSuccessState) {

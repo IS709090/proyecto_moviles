@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_moviles/home.dart';
+import 'loadingScreed.dart';
 import 'testing.dart';
 
 class PolizasScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _PolizasScreenState extends State<PolizasScreen> {
           icon: Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Home()));
+                context, MaterialPageRoute(builder: (context) => loading()));
           },
         ),
         title: Text(

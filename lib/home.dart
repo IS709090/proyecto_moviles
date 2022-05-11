@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proyecto_moviles/auth/bloc/auth_bloc.dart';
+import 'package:proyecto_moviles/seguros/bloc/seguros_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'siniestros.dart';
 import 'polizas.dart';
@@ -14,8 +15,9 @@ final List<String> imgList = [
 ];
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
-
+  // const Home({Key? key}) : super(key: key);
+  final Map<String, dynamic> query;
+  Home({Key? key, required this.query}) : super(key: key);
   @override
   State<Home> createState() => _HomeState();
 }
@@ -75,178 +77,198 @@ class _HomeState extends State<Home> {
   final Uri _url = Uri.parse('tel://3316689586');
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-              text: 'Multi',
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.w700,
-                color: Color(0xff14279B),
+    return BlocConsumer<SegurosBloc, SegurosState>(
+      listener: (context, state) {
+        if (state is SegurosInitial) {
+          BlocProvider.of<SegurosBloc>(context).add(SegurosGetAll());
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                  text: 'Multi',
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xff14279B),
+                  ),
+                  children: [
+                    TextSpan(
+                      text: 'Seguros',
+                      style: TextStyle(color: Colors.black, fontSize: 25),
+                    ),
+                  ]),
+            ),
+            actions: [
+              PopupMenuButton<String>(
+                onSelected: handleClick,
+                itemBuilder: (BuildContext context) {
+                  return {'Desconectar'}.map((String choice) {
+                    return PopupMenuItem<String>(
+                      value: choice,
+                      child: Text(choice),
+                    );
+                  }).toList();
+                },
               ),
-              children: [
-                TextSpan(
-                  text: 'Seguros',
-                  style: TextStyle(color: Colors.black, fontSize: 25),
+            ],
+            actionsIconTheme: IconThemeData(
+              size: 32,
+            ),
+          ),
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                UserAccountsDrawerHeader(
+                  accountName: Text(FirebaseAuth
+                      .instance.currentUser!.displayName
+                      .toString()),
+                  accountEmail:
+                      Text(FirebaseAuth.instance.currentUser!.email.toString()),
+                  currentAccountPicture: CircleAvatar(
+                      child: Image.network(FirebaseAuth
+                          .instance.currentUser!.photoURL
+                          .toString())),
                 ),
-              ]),
-        ),
-        actions: [
-          PopupMenuButton<String>(
-            onSelected: handleClick,
-            itemBuilder: (BuildContext context) {
-              return {'Desconectar'}.map((String choice) {
-                return PopupMenuItem<String>(
-                  value: choice,
-                  child: Text(choice),
-                );
-              }).toList();
-            },
-          ),
-        ],
-        actionsIconTheme: IconThemeData(
-          size: 32,
-        ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text(
-                  FirebaseAuth.instance.currentUser!.displayName.toString()),
-              accountEmail:
-                  Text(FirebaseAuth.instance.currentUser!.email.toString()),
-              currentAccountPicture: CircleAvatar(
-                  child: Image.network(
-                      FirebaseAuth.instance.currentUser!.photoURL.toString())),
-            ),
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text("Inicio"),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: Icon(Icons.folder),
-              title: Text("Mis Polizas"),
-              onTap: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => PolizasScreen()));
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text("Mi Agente"),
-              onTap: () {
-                launchUrl(_url);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.warning),
-              title: Text("Siniestros"),
-              onTap: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => Siniestros()));
-              },
-            ),
-          ],
-        ),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(8),
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              child: CarouselSlider(
-                items: imageSliders,
-                carouselController: _controller,
-                options: CarouselOptions(
-                    autoPlay: false,
-                    enlargeCenterPage: true,
-                    aspectRatio: 2.0,
-                    onPageChanged: (index, reason) {
-                      setState(() {
-                        _current = index;
-                      });
-                    }),
-              ),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: imgList.asMap().entries.map((entry) {
-              return GestureDetector(
-                onTap: () => _controller.animateToPage(entry.key),
-                child: Container(
-                  width: 12.0,
-                  height: 12.0,
-                  margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: (Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.black)
-                          .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+                ListTile(
+                  leading: Icon(Icons.home),
+                  title: Text("Inicio"),
+                  onTap: () {},
                 ),
-              );
-            }).toList(),
+                ListTile(
+                  leading: Icon(Icons.folder),
+                  title: Text("Mis Polizas"),
+                  onTap: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PolizasScreen()));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text("Mi Agente"),
+                  onTap: () {
+                    launchUrl(_url);
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.warning),
+                  title: Text("Siniestros"),
+                  onTap: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => Siniestros()));
+                  },
+                ),
+              ],
+            ),
           ),
-          Row(
+          body: ListView(
+            padding: const EdgeInsets.all(8),
             children: <Widget>[
               Expanded(
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                      minimumSize: MaterialStateProperty.all(Size(
-                          MediaQuery.of(context).size.width,
-                          MediaQuery.of(context).size.height * .2))),
-                  child: Text('Mis Recibos\ny Pólizas',
-                      style: TextStyle(fontSize: 30),
-                      textAlign: TextAlign.center),
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PolizasScreen(),
-                    ),
+                child: Container(
+                  child: CarouselSlider(
+                    items: imageSliders,
+                    carouselController: _controller,
+                    options: CarouselOptions(
+                        autoPlay: false,
+                        enlargeCenterPage: true,
+                        aspectRatio: 2.0,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            _current = index;
+                          });
+                        }),
                   ),
                 ),
               ),
-              SizedBox(width: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: imgList.asMap().entries.map((entry) {
+                  return GestureDetector(
+                    onTap: () => _controller.animateToPage(entry.key),
+                    child: Container(
+                      width: 12.0,
+                      height: 12.0,
+                      margin:
+                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: (Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black)
+                              .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+                    ),
+                  );
+                }).toList(),
+              ),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                          minimumSize: MaterialStateProperty.all(Size(
+                              MediaQuery.of(context).size.width,
+                              MediaQuery.of(context).size.height * .2))),
+                      child: Text('Mis Recibos\ny Pólizas',
+                          style: TextStyle(fontSize: 30),
+                          textAlign: TextAlign.center),
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PolizasScreen(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                          minimumSize: MaterialStateProperty.all(Size(
+                              MediaQuery.of(context).size.width,
+                              MediaQuery.of(context).size.height * .2))),
+                      child: Text('Contactar Agente',
+                          style: TextStyle(fontSize: 30),
+                          textAlign: TextAlign.center),
+                      onPressed: () => launchUrl(_url),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
               Expanded(
                 child: ElevatedButton(
                   style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.red),
                       minimumSize: MaterialStateProperty.all(Size(
                           MediaQuery.of(context).size.width,
                           MediaQuery.of(context).size.height * .2))),
-                  child: Text('Contactar Agente',
+                  child: Text('Tengo un Accidente!',
                       style: TextStyle(fontSize: 30),
                       textAlign: TextAlign.center),
-                  onPressed: () => launchUrl(_url),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Siniestros(),
+                      ),
+                    );
+                  },
                 ),
               ),
+              Text(widget.query.toString())
             ],
           ),
-          SizedBox(height: 10),
-          Expanded(
-            child: ElevatedButton(
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
-                  minimumSize: MaterialStateProperty.all(Size(
-                      MediaQuery.of(context).size.width,
-                      MediaQuery.of(context).size.height * .2))),
-              child: Text('Tengo un Accidente!',
-                  style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Siniestros(),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 

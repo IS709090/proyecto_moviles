@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proyecto_moviles/auth/bloc/auth_bloc.dart';
 
 import 'home.dart';
+import 'loadingScreed.dart';
 import 'signup.dart';
 import 'package:flutter/material.dart';
 
@@ -99,7 +100,7 @@ class _LoginState extends State<Login> {
                     onTap: () => Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Home(),
+                        builder: (context) => loading(),
                       ),
                     ),
                     child: Container(
