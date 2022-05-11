@@ -29,7 +29,7 @@ class misSegurosApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'misSegurosApp',
-        theme: ThemeData(primaryColor: Colors.blue),
+        theme: ThemeData.dark(),
         home: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthErrorState) {

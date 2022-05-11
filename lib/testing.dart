@@ -26,19 +26,19 @@ final Map<String, Set<Map<String, String>>> Polizas = {
     {
       'titulo': "SEAT Ibiza 2017",
       'aseguradora': "Aseguradora HDI",
-      'descripcion': "Seguro de Automóvil Gastos Menores",
+      'descripcion': "Seguro de Automóvil",
       'numero_poliza': "4JF094WJF09W"
     },
     {
       'titulo': "BMW M3 2017",
       'aseguradora': "Aseguradora HDI",
-      'descripcion': "Seguro de Automóvil Gastos Mayores",
+      'descripcion': "Seguro de Automóvil",
       'numero_poliza': "48H9FWHE9FH9"
     },
   },
   'Seguro de Vida': {
     {
-      'titulo': "Iván Canavati",
+      'titulo': "Diego Arana Ballestero",
       'aseguradora': "Aseguradora GNP",
       'descripcion': "Seguro de Vida Menor",
       'numero_poliza': "96JEPRFJ4K"

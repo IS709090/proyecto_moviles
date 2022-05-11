@@ -106,13 +106,14 @@ class _SiniestrosState extends State<Siniestros> {
                 shrinkWrap: true,
                 physics: ClampingScrollPhysics(),
                 padding: const EdgeInsets.all(8),
-                itemCount: widget.query['polizas'].length,
+                itemCount: polizas!.length, //widget.query['polizas'].length,
                 itemBuilder: (BuildContext context, int index) {
-                  var value = widget.query['polizas'][index];
+                  var value = polizas!
+                      .elementAt(index); //widget.query['polizas']['poliza'];
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        numeroPoliza = value["numeroPoliza"].toString();
+                        numeroPoliza = value["numero_poliza"].toString();
                       });
                     },
                     child: Container(
@@ -144,13 +145,12 @@ class _SiniestrosState extends State<Siniestros> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                value["nombrePoliza"]
-                                    .toString(), //"nombrePoliza"
+                                value["titulo"].toString(), //"nombrePoliza"
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                value["tipo"].toString(),
+                                value["descripcion"].toString(),
                                 style: TextStyle(fontSize: 16),
                               ),
                             ],
@@ -194,8 +194,8 @@ class _SiniestrosState extends State<Siniestros> {
                         child: GoogleMap(
                           onMapCreated: _onMapCreated,
                           initialCameraPosition: CameraPosition(
-                            target: _center,
-                            zoom: 11.0,
+                            target: LatLng(20.6799515, -103.3966891),
+                            zoom: 15,
                           ),
                         ),
                       ),
@@ -237,7 +237,7 @@ class _SiniestrosState extends State<Siniestros> {
                             Text("\nUbicación:",
                                 style: TextStyle(fontSize: 16),
                                 textAlign: TextAlign.justify),
-                            Text(_center.toString(),
+                            Text("20.6799515,-103.3966891",
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.justify)

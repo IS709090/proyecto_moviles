@@ -245,6 +245,7 @@ class _HomeState extends State<Home> {
                       style: TextStyle(fontSize: 30),
                       textAlign: TextAlign.center),
                   onPressed: () {
+                    BlocProvider.of<SegurosBloc>(context).add(SegurosGetAll());
                     Navigator.push(
                       context,
                       MaterialPageRoute(

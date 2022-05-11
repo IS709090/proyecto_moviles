@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_moviles/home.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'loadingScreed.dart';
 import 'testing.dart';
 
@@ -44,7 +45,10 @@ class _PolizasScreenState extends State<PolizasScreen> {
             itemCount: arregloPolizas.length,
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  launchUrl(Uri.parse(
+                      "https://firebasestorage.googleapis.com/v0/b/mis-seguros-e6e5d.appspot.com/o/files%2Fdocs%2FCERTIFICADO%20ENANO.pdf?alt=media&token=4dedfcd8-1263-487c-b92f-7c04deed7d3d"));
+                },
                 child: Container(
                   padding: EdgeInsets.all(5),
                   decoration: BoxDecoration(
