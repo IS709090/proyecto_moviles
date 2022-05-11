@@ -23,11 +23,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  /*final Stream<QuerySnapshot> users = FirebaseFirestore.instance
-      .collection('usuarios')
-      .where('email', isEqualTo: FirebaseAuth.instance.currentUser?.email)
-      .snapshots();*/
-
   final List<Widget> imageSliders = imgList
       .map((item) => Container(
             child: Container(
@@ -54,14 +49,6 @@ class _HomeState extends State<Home> {
                           ),
                           padding: EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 20.0),
-                          /*child: Text(
-                            '',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),*/
                         ),
                       ),
                     ],
@@ -160,8 +147,11 @@ class _HomeState extends State<Home> {
                   leading: Icon(Icons.warning),
                   title: Text("Siniestros"),
                   onTap: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => Siniestros()));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                Siniestros(query: widget.query)));
                   },
                 ),
               ],
@@ -258,7 +248,9 @@ class _HomeState extends State<Home> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Siniestros(),
+                        builder: (context) => Siniestros(
+                          query: widget.query,
+                        ),
                       ),
                     );
                   },
