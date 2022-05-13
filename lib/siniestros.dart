@@ -53,7 +53,7 @@ class _SiniestrosState extends State<Siniestros> {
           ),
           body: ListView(padding: const EdgeInsets.all(25), children: [
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
+              /*Text(
                 "¿Que tipo de Reporte deseas hacer?",
                 style: TextStyle(fontSize: 20),
               ),
@@ -90,7 +90,7 @@ class _SiniestrosState extends State<Siniestros> {
                     }).toList(),
                   ),
                 ),
-              ]),
+              ]),*/
               SizedBox(height: 20),
               Text(
                 "Seleccione el Producto Asociado",
@@ -106,14 +106,15 @@ class _SiniestrosState extends State<Siniestros> {
                 shrinkWrap: true,
                 physics: ClampingScrollPhysics(),
                 padding: const EdgeInsets.all(8),
-                itemCount: polizas!.length, //widget.query['polizas'].length,
+                itemCount: widget
+                    .query['polizas'].length, //widget.query['polizas'].length,
                 itemBuilder: (BuildContext context, int index) {
-                  var value = polizas!
-                      .elementAt(index); //widget.query['polizas']['poliza'];
+                  var value = widget.query['polizas']
+                      [index.toString()]; //widget.query['polizas']['poliza'];
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        numeroPoliza = value["numero_poliza"].toString();
+                        numeroPoliza = value["numeroPoliza"].toString();
                       });
                     },
                     child: Container(
@@ -121,8 +122,8 @@ class _SiniestrosState extends State<Siniestros> {
                       decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
-                              spreadRadius: .7,
+                              color: Colors.white.withOpacity(0.5),
+                              spreadRadius: .05,
                               blurRadius: 7,
                               offset: Offset(0, 3),
                             ),
@@ -145,13 +146,17 @@ class _SiniestrosState extends State<Siniestros> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                value["titulo"].toString(), //"nombrePoliza"
+                                value["nombrePoliza"]
+                                    .toString(), //"nombrePoliza"
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
                               ),
                               Text(
-                                value["descripcion"].toString(),
-                                style: TextStyle(fontSize: 16),
+                                value["tipo"].toString(),
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.black),
                               ),
                             ],
                           ),

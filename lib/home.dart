@@ -10,8 +10,9 @@ import 'polizas.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 final List<String> imgList = [
-  'https://64.media.tumblr.com/d643e6ae1c6897f8230412299cbf2d1b/tumblr_inline_pjzvb0mieZ1r4t5bo_500.png',
-  'https://www.pac.bluecross.ca/assets/images/help/PBC_ID_CARD_FRONT_HIGHLIGHT_2016.png',
+  'https://firebasestorage.googleapis.com/v0/b/mis-seguros-e6e5d.appspot.com/o/files%2Ftarjetas%2Ftarjeta2.jpg?alt=media&token=34ddceb1-130a-4199-a864-18c015b1b0f6',
+  'https://firebasestorage.googleapis.com/v0/b/mis-seguros-e6e5d.appspot.com/o/files%2Ftarjetas%2Ftarjeta3.JPG?alt=media&token=c2f0381d-0e07-4b6e-9516-3a85fc4d6596',
+  'https://firebasestorage.googleapis.com/v0/b/mis-seguros-e6e5d.appspot.com/o/files%2Ftarjetas%2Ftarjeta1.jpg?alt=media&token=4ced8d8e-7ee5-43e3-856e-e259efdee1a9'
 ];
 
 class Home extends StatefulWidget {
@@ -117,9 +118,11 @@ class _HomeState extends State<Home> {
                   accountEmail:
                       Text(FirebaseAuth.instance.currentUser!.email.toString()),
                   currentAccountPicture: CircleAvatar(
-                      child: Image.network(FirebaseAuth
-                          .instance.currentUser!.photoURL
-                          .toString())),
+                      child: ClipRRect(
+                    borderRadius: BorderRadius.circular(45),
+                    child: Image.network(
+                        FirebaseAuth.instance.currentUser!.photoURL.toString()),
+                  )),
                 ),
                 ListTile(
                   leading: Icon(Icons.home),
@@ -133,7 +136,8 @@ class _HomeState extends State<Home> {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => PolizasScreen()));
+                            builder: (context) =>
+                                PolizasScreen(query: widget.query)));
                   },
                 ),
                 ListTile(
@@ -147,6 +151,7 @@ class _HomeState extends State<Home> {
                   leading: Icon(Icons.warning),
                   title: Text("Siniestros"),
                   onTap: () {
+                    print(widget.query);
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -160,6 +165,7 @@ class _HomeState extends State<Home> {
           body: ListView(
             padding: const EdgeInsets.all(8),
             children: <Widget>[
+              SizedBox(height: MediaQuery.of(context).size.height * .02),
               Expanded(
                 child: Container(
                   child: CarouselSlider(
@@ -198,11 +204,14 @@ class _HomeState extends State<Home> {
                   );
                 }).toList(),
               ),
+              SizedBox(height: MediaQuery.of(context).size.height * .15),
               Row(
                 children: <Widget>[
                   Expanded(
                     child: ElevatedButton(
                       style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.grey),
                           minimumSize: MaterialStateProperty.all(Size(
                               MediaQuery.of(context).size.width,
                               MediaQuery.of(context).size.height * .2))),
@@ -212,7 +221,8 @@ class _HomeState extends State<Home> {
                       onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PolizasScreen(),
+                          builder: (context) =>
+                              PolizasScreen(query: widget.query),
                         ),
                       ),
                     ),
@@ -221,6 +231,8 @@ class _HomeState extends State<Home> {
                   Expanded(
                     child: ElevatedButton(
                       style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.grey),
                           minimumSize: MaterialStateProperty.all(Size(
                               MediaQuery.of(context).size.width,
                               MediaQuery.of(context).size.height * .2))),
@@ -257,7 +269,7 @@ class _HomeState extends State<Home> {
                   },
                 ),
               ),
-              Text(widget.query.toString())
+              // Text(widget.query.toString())
             ],
           ),
         );

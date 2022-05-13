@@ -22,7 +22,7 @@ class _loadingState extends State<loading> {
         }
         return Center(
             child: Container(
-          child: Text("Loading"),
+          child: CircularProgressIndicator(),
         ));
       },
     );

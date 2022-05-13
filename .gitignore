@@ -33,6 +33,9 @@
 
 # Web related
 lib/generated_plugin_registrant.dart
+lib/polizas2.dart
+lib/siniestros2.dart
+lib/siniestrosa.dart
 
 # Symbolication related
 app.*.symbols
